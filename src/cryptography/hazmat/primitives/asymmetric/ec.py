@@ -66,6 +66,11 @@ class EllipticCurveSignatureAlgorithm(metaclass=abc.ABCMeta):
 
 
 class EllipticCurvePrivateKey(metaclass=abc.ABCMeta):
+    def __eq__(self, other):
+        if not isinstance(other, EllipticCurvePrivateKey):
+            return NotImplemented
+        return self.private_numbers() == other.private_numbers()
+
     @abc.abstractmethod
     def signer(
         self,
@@ -134,6 +139,11 @@ EllipticCurvePrivateKeyWithSerialization = EllipticCurvePrivateKey
 
 
 class EllipticCurvePublicKey(metaclass=abc.ABCMeta):
+    def __eq__(self, other):
+        if not isinstance(other, EllipticCurvePublicKey):
+            return NotImplemented
+        return self.public_numbers() == other.public_numbers()
+
     @abc.abstractmethod
     def verifier(
         self,
